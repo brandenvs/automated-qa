@@ -1,0 +1,176 @@
+/* CSS STYLE-SHEET: Current Build[Prototype Version 2]
+/*                  Designed & Implemented By: Branden van Staden ->For: AWAIT.NET
+/*                  (Release-Date-10 July 2023) 
+*/
+.box {
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-element {
+    display: none;
+}
+
+    .scroll-element.visible {
+        display: block;
+    }
+
+.hidden {
+    display: none;
+}
+
+@keyframes hammer {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(-30deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    80% {
+        transform: rotate(15deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.bi-hammer {
+    animation: hammer 1s ease-in-out;
+    animation-iteration-count: 2;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes raindrop-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes raindrop-fade {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.animated-raindrop {
+    animation: raindrop-pulse 1s infinite, raindrop-fade 4s infinite;
+}
+
+.button-click-animation {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .button-click-animation:active {
+        transform: translateY(5px);
+        box-shadow: 0 0 0 0.80rem rgba(0, 0, 0, 0.1);
+    }
+/* [Front-End-HTML][Landing]_Layout */
+[data-bs-theme="await-warm-mode"] {
+    --bs-body-color: #333333;
+    --bs-body-bg: #1D3557; /* Updated background color */
+    --bs-primary: #E07A5F;
+    --bs-secondary: #938B75;
+    --bs-tertiary-bg: #FDF5E6;
+  }
+  
+  /* HTML Tags */
+  [data-bs-theme="await-warm-mode"] body {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+  }
+  
+  /* Classes */
+  [data-bs-theme="await-warm-mode"] .container {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  [data-bs-theme="await-warm-mode"] .container-fluid {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    padding: 10px;
+  }
+  
+  [data-bs-theme="await-warm-mode"] .btn {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-body-bg);
+  }
+  
+  [data-bs-theme="await-warm-mode"] .btn-secondary {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+    color: var(--bs-body-bg);
+  }
+  
+  [data-bs-theme="await-warm-mode"] .btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-body-bg);
+  }
+  
+  [data-bs-theme="await-warm-mode"] .btn-misc {
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-secondary);
+    color: var(--bs-body-color);
+    padding: 5px;
+  }
+  
+  [data-bs-theme="await-warm-mode"] .btn-misc:hover {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+    color: var(--bs-body-bg);
+  }
+  

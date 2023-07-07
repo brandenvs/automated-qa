@@ -1,0 +1,59 @@
+/* Light Mode */
+[data-bs-theme="await-light-mode"] {
+    --bs-body-color: #333333;
+    --bs-body-bg: #FFFFFF;
+    --bs-primary: #007BFF;
+    --bs-secondary: #6C757D;
+    --bs-tertiary-bg: #F8F9FA;
+  }
+  
+  /* Dark Mode */
+  [data-bs-theme="await-dark-mode"] {
+    --bs-body-color: #FFFFFF;
+    --bs-body-bg: #333333;
+    --bs-primary: #007BFF;
+    --bs-secondary: #6C757D;
+    --bs-tertiary-bg: #2F353A;
+  }
+  
+  /* Warm Mode */
+  [data-bs-theme="await-warm-mode"] {
+    --bs-body-color: #333333;
+    --bs-body-bg: #F7F4E9;
+    --bs-primary: #E07A5F;
+    --bs-secondary: #938B75;
+    --bs-tertiary-bg: #FDF5E6;
+  }
+  
+  /* Additional Elements */
+  
+  /* HTML Tags */
+  body {
+    /* Add custom styles for the body tag */
+  }
+  
+  /* Classes */
+  .container {
+    /* Add custom styles for the .container class */
+  }
+  
+  .container-fluid {
+    /* Add custom styles for the .container-fluid class */
+  }
+  
+  .btn {
+    /* Add custom styles for the .btn class */
+  }
+  
+  .btn-secondary {
+    /* Add custom styles for the .btn-secondary class */
+  }
+  
+  .btn-primary {
+    /* Add custom styles for the .btn-primary class */
+  }
+  
+  .btn-misc {
+    /* Add custom styles for the .btn-misc class */
+  }
+  

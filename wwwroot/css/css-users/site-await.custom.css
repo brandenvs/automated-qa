@@ -1,0 +1,27 @@
+/* CSS STYLE-SHEET: Current Build[Prototype Version 2]
+/*                  Designed & Implemented By: Branden van Staden ->For: AWAIT.NET
+/*                  (Release-Date-10 July 2023) 
+*/
+[data-bs-theme="warm-mode"] {
+    --bs-body-color: #333333;
+    --bs-body-bg: #F7F4E9;
+    --bs-primary: #FF6347;
+    --bs-secondary: #EEDD99;
+    --bs-tertiary-bg: #FDF5E6;
+
+    .dropdown-menu {
+        --bs-dropdown-bg: #F6EDD3;
+        --bs-dropdown-link-active-bg: #FFA07A;
+    }
+
+    .btn-secondary {
+        --bs-btn-bg: #FFA07A;
+        --bs-btn-border-color: #FFA07A;
+        --bs-btn-hover-bg: #FF8C69;
+        --bs-btn-hover-border-color: #FF8C69;
+        --bs-btn-active-bg: #FF6347;
+        --bs-btn-active-border-color: #FF6347;
+        --bs-btn-focus-border-color: #FF6347;
+        --bs-btn-focus-box-shadow: 0 0 0 .25rem rgba(255, 99, 71, .2);
+    }
+}

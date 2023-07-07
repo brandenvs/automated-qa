@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/Landing/_LandingLayout";
+}
+<div class="container">
+    <hr>
+    <div class="row align-items-center">
+        <div class="col-md-2 col-12">
+            <img src="C:\Users\brand\source\Visual Studio Code\AWAIT\logo-removebg.png" class="img-fluid"
+                 alt="Logo">
+        </div>
+        <div class="col-md-4 col-12">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="display-6">
+                        <abbr title="User Login" class="initialism">Sign In</abbr>
+                    </h1>
+                </div>
+                <div class="col-12">
+                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group me-2" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-outline-secondary">Sign In</button>
+                            <button type="button" class="btn btn-outline-secondary active">Create Account</button>
+                            <button type="button" class="btn btn-outline-secondary">Contact Support</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <h3>
+                Welcome Back! <i class="bi bi-door-open"></i><br>
+                <small class="text-body-secondary">Please enter your credentials.</small>
+            </h3>
+            <form>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="userEmail" placeholder="name@example.com" title="Email Address" required>
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="userPassword" placeholder="Password" title="Password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Remember Me?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex mb-3">
+                            <div class="ms-auto p-2">
+                                <button type="submit" class="btn btn-outline-success" title="Login">
+                                    <i class="bi bi-arrow-right-square"> <em>Next</em></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+</div>
