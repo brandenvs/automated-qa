@@ -1,0 +1,73 @@
+﻿@using Await_DotNet_PrototypeVersion_2.Areas.Identity;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model CreateAccountViewModel
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <div class="card-body align-content-center">
+            <h1>Welcome Back @UserManager.GetUserName(User) !</h1>
+            <p>Please wait while we take you to your Dashboard...</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card card-body mb-3">
+        <!--TITLE-->
+        <h3>
+            Hello There! <i class="bi bi-emoji-smile"></i><br>
+            <small class="text-body-secondary">Please enter account details.</small>
+        </h3>
+        <!--CREATE-ACCOUNT-FORM-->
+        <form method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="UserName" type="text" class="form-control" id="createUserName" placeholder="JohnDoe" title="User Name" required>
+                <label asp-for="UserName">User Name*</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="EmailAddress" type="email" class="form-control" id="createEmailAddress" placeholder="name@example.com" title="Email Address" required>
+                <label asp-for="EmailAddress">Email Address*</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="PhoneNumber" type="tel" class="form-control" id="createPhoneNumber" placeholder="+27 012 345 6789" title="Phone Number">
+                <label asp-for="PhoneNumber">Phone Number <small>(optional)</small></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="CompanyName" type="text" class="form-control" id="createCompanyName" placeholder="************" title="Confirm Password" required>
+                <label asp-for="CompanyName">Confirm Password*</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Password" type="password" class="form-control" id="createPassword" placeholder="************" title="New Password" required>
+                <label asp-for="Password">New Password*</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="ConfirmPassword" type="password" class="form-control" id="createPasswordConfirm" placeholder="************" title="Confirm Password" required>
+                <label asp-for="ConfirmPassword">Confirm Password*</label>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" id="createRemember" type="checkbox" value="" title="Remember Credentials">
+                        <label class="form-check-label" for="defaultCheck1">Remember Me?</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex mb-3">
+                        <div class="ms-auto p-2">
+                            <button type="button" id="createAccountBtn" class="btn btn-outline-success" title="Create Account">
+                                <i class="bi bi-arrow-right-square"> <em>Next</em></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+
+

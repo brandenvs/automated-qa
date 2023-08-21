@@ -1,5 +1,260 @@
-﻿@{
-    ViewData["Title"] = "Welcome";
-    Layout = "~/Views/Shared/Landing/_LandingLayout";
+﻿@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.ViewEngines
+
+@inject IWebHostEnvironment Environment
+@inject ICompositeViewEngine Engine
+
+@{
+    ViewData["Title"] = "Welcome's You!";
+    Layout = "~/Views/Shared/Landing/_Layout.cshtml";
 }
-<!--RENDER THE SIGN-IN PARTIAL VIEW HERE-->
+<!--Body-->
+<body class="p-3 m-0 border-0" onload="helloWorld()">
+    <!--*View-Render*-->
+    <div class="p-3 m-0 border-0">
+        <!--Main-Banner-Section-->
+        <section class="p-2 bg-dark bg-gradient rounded" id="bannerMain">
+            <p class="font-monospace text-center text-body-secondary">
+                Welcome To Your Test-Case/Suit Automation Solution! (TCAS)
+            </p>
+        </section>
+        <hr>
+        <!--Main-Content-->
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <!--Main-Button-Group-->
+                <div class="list-group mb-2">
+                    <!--LOGIN-DASHBOARD-->
+                    <button type="button" class="list-group-item list-group-item-action list-group-item-secondary active"
+                            data-bs-toggle="collapse" data-bs-target="#userLogin" aria-expanded="true"
+                            aria-controls="userLogin">
+                        Login Into Dashboard
+                    </button>
+                    <!--CREATE-ACCOUNT-->
+                    <button type="button" class="list-group-item list-group-item-action list-group-item-secondary"
+                            data-bs-toggle="collapse" data-bs-target="#createAccount" aria-expanded="false"
+                            aria-controls="createAccount">
+                        Create New Account
+                    </button>
+                    <!--FORGET-PASSWORD-->
+                    <button type="button" class="list-group-item list-group-item-action list-group-item-secondary disabled"
+                            data-bs-toggle="collapse" data-bs-target="#userForget" aria-expanded="false"
+                            aria-controls="userForget">
+                        Forgot Your Credentials?
+                    </button>
+                </div>
+            </div>
+            <!--Main-Collapses-Data-->
+            <div class="col-lg-6 col-12">
+                <!--Login-Form-->
+                <div class="collapse" id="userLogin">
+                    @{
+                        var resultSignIn = Engine.FindView(ViewContext, "Users/_SignInPartial", isMainPage: false);
+                    }
+                    @if (resultSignIn.Success)
+                    {
+                        await Html.RenderPartialAsync("Users/_SignInPartial");
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("The default Identity UI layout requires a partial view '_SignInPartial' " +
+                        "usually located at '/Pages/_SignInPartial' or at '/Views/Shared/_SignInPartial' to work. Based on your configuration " +
+                        $"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, resultSignIn.SearchedLocations)}.");
+                    }
+                </div>
+                <!--Create-Account-Form-->
+                <div class="collapse" id="createAccount">
+                    @{
+                        var resultCreateAccount = Engine.FindView(ViewContext, "Users/_CreateAccountPartial", isMainPage: false);
+                    }
+                    @if (resultCreateAccount.Success)
+                    {
+                        await Html.RenderPartialAsync("Users/_CreateAccountPartial");
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("The default Identity UI layout requires a partial view '_SignInPartial' " +
+                        "usually located at '/Pages/_SignInPartial' or at '/Views/Shared/_SignInPartial' to work. Based on your configuration " +
+                        $"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, resultCreateAccount.SearchedLocations)}.");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!--Toast-Message-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle">Notification</strong>
+                <small>~now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastBody">
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+                <script type="text/javascript">
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const createButton = document.querySelector('#createAccountBtn');
+                        //SUMMARY: Login user into account.
+                            createButton.addEventListener('click', (e) => {
+                            var username = $('#createUserName').val();
+                            var email = $('#createEmailAddress').val();
+                            var phone = $('#createPhoneNumber').val();
+                            var company = $('#createCompanyName').val();
+                            var pass = $('#createPassword').val();                
+                            var passCon = $('#createPasswordConfirm').val();                
+
+                            var requestData = {
+                                UserName: username,
+                                EmailAddress: email,
+                                PhoneNumber: phone,
+                                CompanyName: company,
+                                Password: pass,
+                                ConfirmPassword: passCon
+                            };
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Users/CreateTCAS',
+                                data: requestData,
+                                success: function (response) {
+                                    if (response == 200) {
+                                        showToast('Successfully Created New Account!', 'Please wait while you are redirected...', 'success');
+                                        setTimeout(function () {
+                                            window.location.href = '/Users/Account';
+                                        }, 2000);
+                                    } else {
+                                        showToast('Unable To Create Account!', response, 'error');
+                                    }
+                                },
+                                error: function (err) {
+                                    showToast('Something Went Wrong!', 'await-net has run into a problem...soz', 'error');
+                                }
+                            });
+                        });
+                        });
+                </script>
+                    <script type="text/javascript">
+                const buttons = document.querySelectorAll('.list-group.mb-2 button');
+                const defaultForm = document.querySelector('#userLogin');
+
+                defaultForm.classList.add('show');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+
+                        const buttonId = button.getAttribute('id');
+                        const collapseElements = document.querySelectorAll('.collapse');
+
+                        defaultForm.classList.remove('show');
+
+                        collapseElements.forEach(element => {
+                            if (element.getAttribute('id') == buttonId) {
+                                element.classList.add('show');
+                            } else {
+                                element.classList.remove('show');
+                            }
+                        });
+                        if (buttonId !== 'button_id') {
+                            button.classList.remove('active');
+                        }
+                    });
+                });
+            </script>
+            }
+    <!--<script type="text/javascript">
+            // Handles Login & Register
+            document.addEventListener('DOMContentLoaded', function () {
+                const loginButton = document.querySelector('#');
+                const createButton = document.querySelector('#');
+                //SUMMARY: Login user into account.
+                loginButton.addEventListener('click', (e) => {
+                    var email = $('#loginEmailAddress').val();
+                    var password = $('#loginPassword').val();
+                    var remember = $('#loginRemember').prop('checked');
+
+                    console.log('email: ' + email, 'password: ' + password, 'remember: ' + remember);
+
+                    var requestData = {
+                        EmailAddress: email,
+                        Password: password,
+                        Remember: remember
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Users/LoginTCAS',
+                        data: requestData,
+                        success: function (response) {
+                            if(response == 200){
+                                showToast('Please wait - Logged In Successfully!', 'You are being redirected...', 'success');
+                                setTimeout(function () {
+                                    window.location.href = '/Users/Account';
+                                }, 2000);
+                            }else{
+                                showToast('Invalid Credentials!', 'The credentials you provided were incorrect... Please try-again!', 'error');
+                            }
+                        },
+                        error: function (err) {
+                            showToast('Login Attempt Failed!', 'Unable to log you in... Please try again!', 'error');
+                        }
+                    });
+                });
+                //SUMMARY: Create new user account.
+                createButton.addEventListener('click', (e) => {
+                    var username = $('#createUserName').val();
+                    var email = $('#createEmailAddress').val();
+                    var phone = $('#createPhoneNumber').val();
+                    var password = $('#createPassword').val();
+                    var confirm_password = $('#createPasswordConfirm').val();
+                    var remember = $('#createRemember').prop('checked');
+
+                    console.log('email: ' + email, 'password: ' + password, 'remember: ' + remember);
+
+                    if (password != confirm_password) {
+                        showToast("Password Don't Match!", "Please make sure your passwords are the same and try-again.", "error");
+                    }
+                    if (phone == null) {
+                        phone = 'not-provided';
+                    }
+
+                    var requestData = {
+                        UserName: username,
+                        EmailAddress: email,
+                        PhoneNumber: phone,
+                        password: password,
+                        passwordConfirm: confirm_password,
+                        remember: remember
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Users/CreateTCAS',
+                        data: requestData,
+                        success: function (response) {
+                            if (response == 200) {
+                                showToast('Successfully Created New Account!', 'Please wait while you are redirected...', 'success');
+                                setTimeout(function () {
+                                    window.location.href = '/Users/Account';
+                                }, 2000);
+                            } else {
+                                showToast('Unable To Create Account!', 'Some required fields were not filled... Please try-again!', 'error');
+                            }
+                        },
+                        error: function (err) {
+                            showToast('Something Went Wrong!', 'await-net has run into a problem...soz', 'error');
+                        }
+                    });
+
+                });
+            });
+        </script>
+        -->
+
+</body>

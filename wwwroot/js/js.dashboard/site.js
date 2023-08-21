@@ -9,7 +9,6 @@ function helloWorld() {
 }
 window.addEventListener('load', helloWorld);
 '-----------------------------------------------------------------------------------------------'
-
 // Manage ACTIVE NAV-LINK-TABS
 window.addEventListener('DOMContentLoaded', function () {
     var title = this.document.title;

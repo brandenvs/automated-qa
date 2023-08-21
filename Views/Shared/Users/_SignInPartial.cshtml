@@ -1,0 +1,53 @@
+﻿@using Await_DotNet_PrototypeVersion_2.Areas.Identity;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container">
+        <div class="card-body align-content-center">
+            <h1>Welcome Back @UserManager.GetUserName(User) !</h1>
+            <p>Please wait while we take you to your Dashboard...</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card card-body mb-3">
+        <!--TITLE-->
+        <h3>
+            Welcome Back! <i class="bi bi-emoji-smile"></i><br>
+            <small class="text-body-secondary">Please enter account details.</small>
+        </h3>
+        <!--LOGIN-ACCOUNT-FORM-->
+        <form asp-action="LoginTCAS" method="post">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="signInEmailAddress" placeholder="name@example.com" title="Email Address" required>
+                <label for="###">Email Address*</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="signInPassword" placeholder="************" title="Password" required>
+                <label for="###">Password*</label>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" id="signInRemember" type="checkbox" value="" title="Remember Credentials">
+                        <label class="form-check-label" for="defaultCheck1">Remember Me?</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex mb-3">
+                        <div class="ms-auto p-2">
+                            <button type="button" id="signInBtn" class="btn btn-outline-success" title="Create Account">
+                                <i class="bi bi-arrow-right-square"> <em>Next</em></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}
